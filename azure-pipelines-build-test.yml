@@ -1,0 +1,44 @@
+# File: azure-pipelines-build-test.yml
+
+trigger:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  nodeVersion: '20.x'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '$(nodeVersion)'
+  displayName: 'Use Node.js $(nodeVersion)'
+
+- script: |
+    cd AjPhotography.Frontend
+    npm install
+  displayName: 'npm install (frontend)'
+
+- script: |
+    cd AjPhotography.Frontend
+    npm run build
+  displayName: 'npm run build (frontend)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'AjPhotography.Backend/Api/Api.csproj'
+    arguments: '--configuration Release'
+  displayName: 'Build backend'
+
+# Placeholder test step, enable when tests exits
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration Release --no-build'
+  displayName: 'Run backend tests'
+  condition: false #disable until tests added
