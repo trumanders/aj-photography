@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: end;
+    height: 200px;
+    align-items: center;
+    margin-bottom: 120px;
+}
+
+.header a {
+    margin: 40px;
+    font-family: 'Metropolis', 'Courier New', Courier, monospace;    
+    text-decoration: none;
+    font-size: large;
+    letter-spacing: 0.26em;
+    font-weight: 500;
+    color: rgba(26, 19, 6, 0.525);
+}
+
+.header-logo {
+    position:fixed;
+    top: 30px;
+    left: 50px;
+    height: 200px;
+}
+
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('./assets/fonts/Metropolis/Metropolis-Regular.otf') format('opentype');
+}
