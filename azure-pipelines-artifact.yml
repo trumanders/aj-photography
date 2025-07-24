@@ -1,0 +1,60 @@
+trigger: none
+
+pr: none
+
+resources:
+  pipelines:
+    - pipeline: buildTest
+      source: BuildAndTest
+      trigger:
+        branches:
+          include:
+            - main
+
+stages:
+- stage: Publish
+  displayName: 'Publish Artifact'
+  jobs:
+  - job: BuildAndPublish
+    displayName: 'Build React + Publish Backend'
+    pool:
+      vmImage: 'windows-latest'
+
+    variables:
+      nodeVersion: '20.x'
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '$(nodeVersion)'
+      displayName: 'Use Node.js $(nodeVersion)'
+
+    - script: |
+        cd AjPhotography.Frontend
+        npm install
+      displayName: 'npm install (frontend)'
+
+    - script: |
+        cd AjPhotography.Frontend
+        npm run build
+      displayName: 'npm run build (frontend)'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: AjPhotography.Backend/Api/Api.csproj
+      displayName: 'Restore backend'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: AjPhotography.Backend/Api/Api.csproj'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)/api'
+      displayName: 'Publish backend'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectoty'
+        ArtifactName: 'ajphotography'
+      displayName: 'Publish artifact'
