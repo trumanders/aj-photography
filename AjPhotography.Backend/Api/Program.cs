@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 namespace Api;
 
@@ -9,7 +10,11 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
-        builder.Services.AddDbContext<Context>();
+        builder.Services.AddDbContext<Context>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
+        });
+
 
         var app = builder.Build();
 

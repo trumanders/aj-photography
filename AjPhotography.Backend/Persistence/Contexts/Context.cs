@@ -3,9 +3,11 @@ using Persistence.Entities;
 
 namespace Persistence.Contexts;
 
-public class Context(DbContextOptions<Context> options) : DbContext
+public class Context : DbContext
 {
     public DbSet<HomePagePhoto> HomePagesPhoto => Set<HomePagePhoto>();
+    
+    public Context(DbContextOptions<Context> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
