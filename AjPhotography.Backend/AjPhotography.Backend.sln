@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36203.30 d17.14
+VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{9B895347-3C25-448E-BF49-43DF628EBA35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{E6B47FD1-98D1-4888-B63E-10A44167B163}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{8A18F41A-F587-4DA7-84E2-41A051E15868}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{AFFF84DB-ED3E-4773-A21D-3EA5A0BAD13A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +34,10 @@ Global
 		{8A18F41A-F587-4DA7-84E2-41A051E15868}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A18F41A-F587-4DA7-84E2-41A051E15868}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A18F41A-F587-4DA7-84E2-41A051E15868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFF84DB-ED3E-4773-A21D-3EA5A0BAD13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFF84DB-ED3E-4773-A21D-3EA5A0BAD13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFF84DB-ED3E-4773-A21D-3EA5A0BAD13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFF84DB-ED3E-4773-A21D-3EA5A0BAD13A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
