@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
+
 namespace Api;
 
 public class Program
@@ -9,27 +10,28 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllers();
-        builder.Services.AddOpenApi();
         builder.Services.AddDbContext<Context>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
         });
+        
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(
+                name: "origins",
+                policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173/");
+                });
+         });
 
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapOpenApi();
-        }
-
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
-
         app.MapControllers();
+        app.UseCors("origins");
 
         app.Run();
     }
