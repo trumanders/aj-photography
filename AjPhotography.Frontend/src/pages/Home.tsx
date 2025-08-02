@@ -1,4 +1,5 @@
-// import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { fetchPhotosByCategory } from '../api';
 import './Home.css';
 
 // const images = [
@@ -13,6 +14,14 @@ import './Home.css';
 // ]
 
 function Home() {
+    const [photos, setPhotos] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetchPhotosByCategory('portraits')
+            .then(setPhotos)
+            .catch(console.error);
+    }, []);
+
     // const [centerIndex, setCenterIndex] = useState<number>(2)
     
     // const prev = () => {
@@ -28,12 +37,20 @@ function Home() {
             <div className="images-container">
                 <div className="category-container">
                     <p>PORTRÄTT</p>
+                    <div className="category-photos-row">
+                        {photos.map((photo, index) => (
+                            <img src={photo.imageUrl} alt={`Photo ${index + 1}`} />
+                        ))}
+                    </div>
                 </div>
                 <div className="category-container">
                     <p>NATUR</p>
                 </div>                
                 <div className="category-container">
                     <p>BRÖLLOP</p>
+                </div>
+                    <div className="category-container">
+                    <p>FAMILJ</p>
                 </div>
             </div>
         </>
