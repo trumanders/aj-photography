@@ -21,7 +21,7 @@ public class Program
                 name: "origins",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173/");
+                    policy.WithOrigins("http://localhost:5173");
                 });
          });
 
@@ -30,8 +30,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseAuthorization();
-        app.MapControllers();
         app.UseCors("origins");
+        app.MapControllers();
+       
 
         app.Run();
     }
