@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
+using System.Text.Json;
 
 namespace Api;
 
@@ -9,7 +10,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            });
+
         builder.Services.AddDbContext<Context>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
@@ -21,7 +27,7 @@ public class Program
                 name: "origins",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173/");
+                    policy.WithOrigins("http://localhost:5173");
                 });
          });
 
@@ -30,8 +36,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseAuthorization();
-        app.MapControllers();
         app.UseCors("origins");
+        app.MapControllers();
+       
 
         app.Run();
     }
