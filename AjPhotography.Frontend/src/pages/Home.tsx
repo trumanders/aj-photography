@@ -1,56 +1,25 @@
 import { useEffect, useState } from 'react'
-import { fetchPhotosByCategory } from '../api';
+import { fetchPhotosByPageCategory } from '../api';
 import './Home.css';
-
-// const images = [
-//     '/1.jpg',
-//     '/2.jpg',
-//     '/3.jpg',
-//     '/4.jpg',
-//     '/5.jpg',
-//     '/6.jpg',
-//     '/7.jpg',
-//     '/8.jpg',
-// ]
+import HomePageCategoryPhotos from '../components/HomePageCategoryPhotos';
 
 function Home() {
-    const [photos, setPhotos] = useState<any[]>([]);
+    const [homePagePhotos, setHomePagePhotos] = useState<any[]>([]);
 
     useEffect(() => {
-        fetchPhotosByCategory('portraits')
-            .then(setPhotos)
+        fetchPhotosByPageCategory('HomePage')
+            .then(setHomePagePhotos)
             .catch(console.error);
     }, []);
-
-    // const [centerIndex, setCenterIndex] = useState<number>(2)
-    
-    // const prev = () => {
-    //     setCenterIndex((i: number) => (i === 0 ? images.length - 1 : i - 1))
-    // }
-    
-    // const next = () => {
-    //     setCenterIndex((i: number) => (i === images.length - 1 ? 0 : i + 1))
-    // }
 
     return (
         <>
             <div className="images-container">
-                <div className="category-container">
-                    <p>PORTRÄTT</p>
-                    <div className="category-photos-row">
-                        {photos.map((photo, index) => (
-                            <img src={photo.imageUrl} alt={`Photo ${index + 1}`} />
-                        ))}
-                    </div>
-                </div>
-                <div className="category-container">
-                    <p>NATUR</p>
-                </div>                
-                <div className="category-container">
-                    <p>BRÖLLOP</p>
-                </div>
-                    <div className="category-container">
-                    <p>FAMILJ</p>
+                <div className="images-container">
+                    <HomePageCategoryPhotos categoryHeader="PORTRÄTT" photoCategory="Portrait" photos={homePagePhotos} />
+                    <HomePageCategoryPhotos categoryHeader="NATUR" photoCategory="Nature" photos={homePagePhotos} />
+                    <HomePageCategoryPhotos categoryHeader="BRÖLLOP" photoCategory="Wedding" photos={homePagePhotos} />
+                    <HomePageCategoryPhotos categoryHeader="FAMILJ" photoCategory="Family" photos={homePagePhotos} />
                 </div>
             </div>
         </>

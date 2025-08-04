@@ -1,12 +1,24 @@
 .images-container {
+    margin-top: 100px;
     margin-left: 50px;
     letter-spacing: 2.5em;
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    /* height: 800px; */
 }
 
 .category-container {
     height: 300px;
+}
+
+.category-photos-row {
+    display: flex;
+    gap: 10px;
+}
+
+.category-photos-row img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;  /* valfritt, för rundade hörn */
 }
