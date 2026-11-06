@@ -31,7 +31,7 @@ public class Program
                 name: "origins",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173", "https://www.snaplog.se");
+                    policy.WithOrigins("http://localhost:5173");
                 });
          });
 
