@@ -5,7 +5,7 @@ namespace Persistence.Contexts;
 
 public class Context : DbContext
 {
-    public DbSet<HomePagePhoto> HomePagesPhoto => Set<HomePagePhoto>();
+    public DbSet<Photo> Photo => Set<Photo>();
     
     public Context(DbContextOptions<Context> options) : base(options) { }
 
@@ -13,9 +13,12 @@ public class Context : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Store Category as string
-        modelBuilder.Entity<HomePagePhoto>()
-            .Property(p => p.Category)
+        modelBuilder.Entity<Photo>()
+            .Property(p => p.PhotoCategory)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Photo>()
+            .Property(p => p.PageCategory)
             .HasConversion<string>();
 
         // Disable cascade delete here

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Api;
 
@@ -14,7 +15,10 @@ public class Program
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+        
 
         builder.Services.AddDbContext<Context>(options =>
         {
@@ -27,7 +31,7 @@ public class Program
                 name: "origins",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173");
+                    policy.WithOrigins("http://localhost:5173", "https://www.snaplog.se");
                 });
          });
 
